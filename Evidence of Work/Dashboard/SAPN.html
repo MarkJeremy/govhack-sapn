@@ -17,10 +17,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </style>
 </head>
 
-<script type="text/javascript" src="T123.js"></script>
-<script type="text/javascript" src="flights.js"></script>
+<!--<script type="text/javascript" src="T123.js"></script>-->
+<!--<script type="text/javascript" src="flights.js"></script>-->
 
 <script>
+
+  const load_data={T1:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1050246","1061776","1075081","1090572","1101140","1110427","1131199"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["4142","4164","4223","4400","4929","5050","5452"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["194244","199058","205786","212739","220456","226726","235666"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["7038","7104","7172","7394","7676","7947","8267"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["22982","22886","23096","22918","22828","22713","22874"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["8429","8423","8638","8797","8892","8837","9021"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1869","1874","1853","1868","1875","1863","1888"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["5554","5691","5766","5947","5909","6077","6008"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["53010","53724","54389","54325","55223","55320","57524"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1347514","1364700","1386004","1408960","1428928","1444960","1477899"]}],T2:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 622","624","628","632","633","632","639"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 2","2","2","3","3","3","3"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 115","117","120","123","127","129","133"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 4","4","4","4","4","5","5"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 14","13","14","13","13","13","13"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 5","5","5","5","5","5","5"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 1","1","1","1","1","1","1"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 3","3","3","3","3","3","3"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 31","32","32","31","32","31","32"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 798","802","810","816","821","823","835"]}],T3:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","11","12","12","12"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 22","21","21","21","21","21","21"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","11","11","11","12"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 12","12","12","12","12","12","12"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 17","17","17","17","16","16","16"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","12","11","11","12","12"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 15","15","15","15","15","15","15"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","12","12","12","12","12"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","12","12","13","13"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","12","12","12","12"]}]};
+
+  const flights = {
+    "Year":["1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
+    "Total_trips":["16463", "16983", "17141", "17892", "18497", "15156", "18844", "23620", "26689", "27935", "32535", "38073", "41047", "41492", "42635", "42959", "43988", "45185", "40213", "40824", "43995", "46009", "44036", "40546", "44221", "44513", "54881", "52200", "52330", "53810", "55587", "57281", "57842", "57048", "56964", "56429", "19909", "29906", "29413"]
+  }
+
   function loadPage(){
     document.getElementById('home-page').style.display = "block";
     document.getElementById('dashboard').style.display = "none";
@@ -98,7 +106,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <!-- Header -->
   <header class="w3-container w3-white w3-center" style="padding:128px 16px">
     <!--<p style="background-image: url('SAPowerNetworks_117652119_SAPN_POSITION_VERT_RGB.png');background-size: 100% 100%;"></p>-->
-    <img src="SAPowerNetworks_117652119_SAPN_POSITION_VERT_RGB.png" height="512px" alt="SA Power Networks">
+    <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/SAPowerNetworks_117652119_SAPN_POSITION_VERT_RGB.png?raw=true" height="512px" alt="SA Power Networks">
     <h1 class="w3-margin w3-jumbo">GridGuardians SA</h1>
     <p class="w3-xlarge">Amp up SA: Forecasting Electric Transport for Grid Resilience</p>
     <button onclick="showDashboard()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top" style="border-radius: 8px;">Dashboard</button>
@@ -508,7 +516,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       <div class="w3-twothird">
         <h1>Energy Consumption for a 22 tonne truck:</br>Electric -Vs- Diesel</h1>
         <h5 class="w3-padding-16"></h5>
-        <img src="Diesel-vs-Electric truck.png" height="512px" alt="SA Power Networks">
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/Diesel-vs-Electric%20truck.png?raw=true" height="512px" alt="SA Power Networks">
 
         <p class="w3-text-grey">Source: <a href="https://electricvehiclecouncil.com.au/wp-content/uploads/2022/01/ATA-EVC-Electric-trucks_Keeping-shelves-stocked-in-a-net-zero-world-2.pdf">Electric Vehicle Council of Australia</a></p>
       </div>
@@ -547,7 +555,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       <div class="w3-twothird">
         <h1>Concept for monitoring the number of vehicles in each area/suburb of Adelaide.</h1>
         <h5 class="w3-padding-16"></h5>
-        <img src="Adelaide_Map.png" height="512px" alt="SA Power Networks">
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/Adelaide_Map.png?raw=true" height="512px" alt="SA Power Networks">
 
         <p class="w3-text-grey">If the environmental policies are directed towards incentivising people to replace thier old ICE cars to EVs. 
           With cars more than 10 years old are more likely to be replaced sooner based on the average age of the cars.
@@ -572,7 +580,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       <div class="w3-twothird">
         <h1>Top 10 suburbs with the most vehicles</h1>
         <h5 class="w3-padding-32"></h5>
-        <img src="suburb-vehicles.png" height="512px" alt="SA Power Networks">
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/suburb-vehicles.png?raw=true" height="512px" alt="SA Power Networks">
         <p class="w3-text-grey">Source: <a href="https://electricvehiclecouncil.com.au/wp-content/uploads/2022/01/ATA-EVC-Electric-trucks_Keeping-shelves-stocked-in-a-net-zero-world-2.pdf">Electric Vehicle Council of Australia</a></p>
         <p class="w3-text-grey"></p>
       </div>
@@ -640,6 +648,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       <div class="w3-twothird">
         <h1>Expected energy demand from aviation</h1>
         <h5 class="w3-padding-32"></h5>
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/CleanTechnica-EF.png?raw=true" width="100%" alt="SA Power Networks">
+        <p class="w3-text-grey">Source: <a href="https://cleantechnica.com/2022/12/05/how-much-electricity-will-electric-airplanes-need-how-much-will-it-cost/">CleanTechnica</a></p>
 
         <p class="w3-text-grey">
           Electric passenger flights are a relatively new technology. And as such we are not fully aware of the energy requirements for it.
