@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>W3.CSS Template</title>
+<title>GridGuardians SA</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -18,6 +18,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 </head>
 
 <script type="text/javascript" src="T123.js"></script>
+<script type="text/javascript" src="flights.js"></script>
+
 <script>
   function loadPage(){
     document.getElementById('home-page').style.display = "block";
@@ -150,7 +152,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         
         
         <button onclick="updateChart(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
-        <button onclick="updateChart(0)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Passenger Vehicles</button>
         <button onclick="updateChart(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
         <button onclick="updateChart(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
         <button onclick="updateChart(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
@@ -257,7 +258,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           });
           </script>
           
-        <p class="w3-text-grey"></p>
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
       </div>
 
       <div class="w3-third w3-center">
@@ -277,7 +278,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <h1>Non-passenger Motor vehicles per capita 1000 by type of vehicle</h1>
         
         <button onclick="updateChart2(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
-        <button onclick="updateChart2(0)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Passenger Vehicles</button>
         <button onclick="updateChart2(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
         <button onclick="updateChart2(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
         <button onclick="updateChart2(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
@@ -376,7 +376,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           });
           </script>
 
-        <p class="w3-text-grey"></p>
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
       </div>
     </div>
   </div>
@@ -393,7 +393,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <h1>Non-passenger Motor vehicles average age by type of vehicle</h1>
         
         <button onclick="updateChart3(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
-        <button onclick="updateChart3(0)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Passenger Vehicles</button>
         <button onclick="updateChart3(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
         <button onclick="updateChart3(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
         <button onclick="updateChart3(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
@@ -492,7 +491,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           });
           </script>
 
-        <p class="w3-text-grey"></p>
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
       </div>
     </div>
   </div>
@@ -591,12 +590,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
       <div class="w3-twothird">
-        <h1></h1>
+        <h1>Number of flights starting from Adelaide per year</h1>
         <h5 class="w3-padding-16"></h5>
 
+        <canvas id="myChart4" style="width:100%;max-width:800px;"></canvas>
+        <script>
+          console.log(flights)
+          const f1_datasets = [
+                { 
+                  label: flights.Year,
+                  data: flights.Total_trips,
+                  borderColor: randomRGB(),
+                  fill: false
+                }
+              ];
+
+          var line_chart4 = new Chart("myChart4", {
+            type: "line",
+            data: {
+              labels: flights.Year,
+              datasets: f1_datasets
+            },
+            options: {
+              legend: {
+                display: false
+              }
+            }
+          });
+          </script>
+        
         <p class="w3-text-grey"></p>
 
-          <p class="w3-text-grey"></p>
+        <p class="w3-text-grey">Source: <a href="https://data.gov.au/dataset/ds-dga-c5029f2a-39b3-4aef-8ae1-73e7962f6170/details">data.gov.au</a></p>
       </div>
 
       <div class="w3-third w3-center">
@@ -613,10 +638,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
       </div>
 
       <div class="w3-twothird">
-        <h1>Expected energy demand</h1>
+        <h1>Expected energy demand from aviation</h1>
         <h5 class="w3-padding-32"></h5>
 
-        <p class="w3-text-grey"></p>
+        <p class="w3-text-grey">
+          Electric passenger flights are a relatively new technology. And as such we are not fully aware of the energy requirements for it.
+        </p>
       </div>
     </div>
   </div>
