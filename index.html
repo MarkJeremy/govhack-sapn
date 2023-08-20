@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>GridGuardians SA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/regression@2.0.1/dist/regression.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+</head>
+
+<!--<script type="text/javascript" src="T123.js"></script>-->
+<!--<script type="text/javascript" src="flights.js"></script>-->
+
+<script>
+
+  const load_data={T1:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1050246","1061776","1075081","1090572","1101140","1110427","1131199"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["4142","4164","4223","4400","4929","5050","5452"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["194244","199058","205786","212739","220456","226726","235666"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["7038","7104","7172","7394","7676","7947","8267"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["22982","22886","23096","22918","22828","22713","22874"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["8429","8423","8638","8797","8892","8837","9021"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1869","1874","1853","1868","1875","1863","1888"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["5554","5691","5766","5947","5909","6077","6008"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["53010","53724","54389","54325","55223","55320","57524"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:["1347514","1364700","1386004","1408960","1428928","1444960","1477899"]}],T2:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 622","624","628","632","633","632","639"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 2","2","2","3","3","3","3"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 115","117","120","123","127","129","133"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 4","4","4","4","4","5","5"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 14","13","14","13","13","13","13"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 5","5","5","5","5","5","5"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 1","1","1","1","1","1","1"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 3","3","3","3","3","3","3"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 31","32","32","31","32","31","32"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 798","802","810","816","821","823","835"]}],T3:[{Type:"Passenger vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","11","12","12","12"]},{Type:"Campervans",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 22","21","21","21","21","21","21"]},{Type:"Light commercial vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","11","11","11","12"]},{Type:"Light rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 12","12","12","12","12","12","12"]},{Type:"Heavy rigid trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 17","17","17","17","16","16","16"]},{Type:"Articulated trucks",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","12","11","11","12","12"]},{Type:"Non-freight carrying vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 15","15","15","15","15","15","15"]},{Type:"Buses",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","12","12","12","12","12"]},{Type:"Motorcycles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","12","12","13","13"]},{Type:"Total Motor Vehicles",Year:["2015","2016","2017","2018","2019","2020","2021"],Value:[" 11","11","11","12","12","12","12"]}]};
+
+  const flights = {
+    "Year":["1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
+    "Total_trips":["16463", "16983", "17141", "17892", "18497", "15156", "18844", "23620", "26689", "27935", "32535", "38073", "41047", "41492", "42635", "42959", "43988", "45185", "40213", "40824", "43995", "46009", "44036", "40546", "44221", "44513", "54881", "52200", "52330", "53810", "55587", "57281", "57842", "57048", "56964", "56429", "19909", "29906", "29413"]
+  }
+
+  function loadPage(){
+    document.getElementById('home-page').style.display = "block";
+    document.getElementById('dashboard').style.display = "none";
+    document.getElementById('truck-conv').style.display = "none";
+    document.getElementById('map-view').style.display = "none";
+    document.getElementById('aviation').style.display = "none";
+  }
+
+  function showDashboard() {
+    document.getElementById('home-page').style.display = "none";
+    document.getElementById('dashboard').style.display = "block";
+    document.getElementById('truck-conv').style.display = "none";
+    document.getElementById('map-view').style.display = "none";
+    document.getElementById('aviation').style.display = "none";
+  }
+
+  function showTruckConv() {
+    document.getElementById('home-page').style.display = "none";
+    document.getElementById('dashboard').style.display = "none";
+    document.getElementById('truck-conv').style.display = "block";
+    document.getElementById('map-view').style.display = "none";
+    document.getElementById('aviation').style.display = "none";
+  }
+
+  function showMap() {
+    document.getElementById('home-page').style.display = "none";
+    document.getElementById('dashboard').style.display = "none";
+    document.getElementById('truck-conv').style.display = "none";
+    document.getElementById('map-view').style.display = "block";
+    document.getElementById('aviation').style.display = "none";
+  }
+
+  function showAviation() {
+    document.getElementById('home-page').style.display = "none";
+    document.getElementById('dashboard').style.display = "none";
+    document.getElementById('truck-conv').style.display = "none";
+    document.getElementById('map-view').style.display = "none";
+    document.getElementById('aviation').style.display = "block";
+  }
+
+  async function printJSON() {
+    const response = await fetch("T123.json");
+    const json = await response.json();
+    console.log(json);
+  }
+
+</script>
+
+<body onload="loadPage()">
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-card w3-left-align w3-large" style="background-color: #FA820F;"> <!--color: #525252;-->
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="javascript:loadPage()" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="javascript:showDashboard()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Dashboard</a>
+    <a href="javascript:showMap()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
+    <a href="javascript:showTruckConv()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Trucks</a>
+    <a href="javascript:showAviation()" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Aviation</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="javascript:showDashboard()" class="w3-bar-item w3-button w3-padding-large">Dashboard</a>
+    <a href="javascript:showMap()" class="w3-bar-item w3-button w3-padding-large">Map</a>
+    <a href="javascript:showTruckConv()" class="w3-bar-item w3-button w3-padding-large">Trucks</a>
+    <a href="javascript:showAviation()" class="w3-bar-item w3-button w3-padding-large">Aviation</a>
+  </div>
+</div>
+
+<!------------------------------------------------------------------------------->
+
+<div id="home-page">
+
+  <!-- Header -->
+  <header class="w3-container w3-white w3-center" style="padding:128px 16px">
+    <!--<p style="background-image: url('SAPowerNetworks_117652119_SAPN_POSITION_VERT_RGB.png');background-size: 100% 100%;"></p>-->
+    <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/SAPowerNetworks_117652119_SAPN_POSITION_VERT_RGB.png?raw=true" height="512px" alt="SA Power Networks">
+    <h1 class="w3-margin w3-jumbo">GridGuardians SA</h1>
+    <p class="w3-xlarge">Amp up SA: Forecasting Electric Transport for Grid Resilience</p>
+    <button onclick="showDashboard()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top" style="border-radius: 8px;">Dashboard</button>
+  </header>
+
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Our Team</h1>
+        <h5 class="w3-padding-16">Team Lead:</br>Jim Ye</h5>
+        <h5 class="w3-padding-8">Candice</h5>
+        <h5 class="w3-padding-8">Mark</h5>
+
+        <p class="w3-text-grey"></p>
+      </div>
+
+      <div class="w3-third w3-center">
+        <i class="fa fa-anchor w3-padding-64" style="color: #FA820F;"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Grid -->
+  <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        <i class="fa fa-coffee w3-padding-64 w3-margin-right" style="color: #FA820F;"></i>
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Challenge</h1>
+        <h5 class="w3-padding-32"></h5>
+
+        <p class="w3-text-grey"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------->
+
+<div id="dashboard">
+
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Non-passenger Motor vehicles on register by type of vehicle</h1>
+        
+        
+        <button onclick="updateChart(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
+        <button onclick="updateChart(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
+        <button onclick="updateChart(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
+        <button onclick="updateChart(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
+        <button onclick="updateChart(4)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Heavy rigid trucks</button>
+        <button onclick="updateChart(5)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Articulated trucks</button>
+        <button onclick="updateChart(6)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Non-freight carrying vehicles</button>
+        <button onclick="updateChart(7)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Buses</button>
+        <button onclick="updateChart(8)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Motorcycles</button>
+        <h5 class="w3-padding-16"></h5>
+        <canvas id="myChart" style="width:100%;max-width:800px;"></canvas>
+        <script>
+          function updateChart(index){
+            if (index != 9) {
+              line_chart.data.datasets = [{ 
+                label: load_data.T1[index].Type,
+                data: load_data.T1[index].Value,
+                borderColor: randomRGB(),
+                fill: false
+              }];
+            } else {
+              line_chart.data.datasets = t1_datasets
+            }
+            
+            line_chart.update();
+          }
+
+          const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
+          const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
+
+          const xValues = load_data.T1[0].Year;
+          console.log(load_data.T1[0].Value);
+          var linearReg = regression.linear(load_data.T1[0].Value);
+          console.log(linearReg);
+
+          const t1_datasets = [
+                { 
+                  label: load_data.T1[1].Type,
+                  data: load_data.T1[1].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[2].Type,
+                  data: load_data.T1[2].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[3].Type,
+                  data: load_data.T1[3].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[4].Type,
+                  data: load_data.T1[4].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[5].Type,
+                  data: load_data.T1[5].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[6].Type,
+                  data: load_data.T1[6].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[7].Type,
+                  data: load_data.T1[7].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T1[8].Type,
+                  data: load_data.T1[8].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                }
+              ];
+
+          var line_chart = new Chart("myChart", {
+            type: "line",
+            options: {
+                scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                }
+            },
+            data: {
+              labels: xValues,
+              datasets: t1_datasets
+            },
+            options: {
+              legend: {
+                display: true
+              }
+            }
+          });
+          </script>
+          
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
+      </div>
+
+      <div class="w3-third w3-center">
+        <!--<i class="fa fa-anchor w3-padding-64" style="color: #FA820F;"></i>-->
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Grid -->
+  <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Non-passenger Motor vehicles per capita 1000 by type of vehicle</h1>
+        
+        <button onclick="updateChart2(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
+        <button onclick="updateChart2(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
+        <button onclick="updateChart2(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
+        <button onclick="updateChart2(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
+        <button onclick="updateChart2(4)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Heavy rigid trucks</button>
+        <button onclick="updateChart2(5)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Articulated trucks</button>
+        <button onclick="updateChart2(6)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Non-freight carrying vehicles</button>
+        <button onclick="updateChart2(7)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Buses</button>
+        <button onclick="updateChart2(8)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Motorcycles</button>
+        <h5 class="w3-padding-16"></h5>
+        <canvas id="myChart2" style="width:100%;max-width:800px;"></canvas>
+        <script>
+          function updateChart2(index){
+            if (index != 9) {
+              line_chart2.data.datasets = [{ 
+                label: load_data.T2[index].Type,
+                data: load_data.T2[index].Value,
+                borderColor: randomRGB(),
+                fill: false
+              }];
+            } else {
+              line_chart2.data.datasets = t2_datasets
+            }
+            
+            line_chart2.update();
+          }
+
+          const t2_datasets = [
+                { 
+                  label: load_data.T2[1].Type,
+                  data: load_data.T2[1].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[2].Type,
+                  data: load_data.T2[2].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[3].Type,
+                  data: load_data.T2[3].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[4].Type,
+                  data: load_data.T2[4].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[5].Type,
+                  data: load_data.T2[5].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[6].Type,
+                  data: load_data.T2[6].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[7].Type,
+                  data: load_data.T2[7].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T2[8].Type,
+                  data: load_data.T2[8].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                }
+              ];
+
+          var line_chart2 = new Chart("myChart2", {
+            type: "line",
+            options: {
+                scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                }
+            },
+            data: {
+              labels: xValues,
+              datasets: t2_datasets
+            },
+            options: {
+              legend: {
+                display: true
+              }
+            }
+          });
+          </script>
+
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Third Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Non-passenger Motor vehicles average age by type of vehicle</h1>
+        
+        <button onclick="updateChart3(9)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">All</button>
+        <button onclick="updateChart3(1)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Campervans</button>
+        <button onclick="updateChart3(2)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light commercial Vehicles</button>
+        <button onclick="updateChart3(3)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Light rigid trucks</button>
+        <button onclick="updateChart3(4)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Heavy rigid trucks</button>
+        <button onclick="updateChart3(5)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Articulated trucks</button>
+        <button onclick="updateChart3(6)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Non-freight carrying vehicles</button>
+        <button onclick="updateChart3(7)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Buses</button>
+        <button onclick="updateChart3(8)" class="w3-button w3-lightblue w3-padding-small w3-small w3-margin-top" style="border-radius: 8px;">Motorcycles</button>
+        <h5 class="w3-padding-16"></h5>
+        <canvas id="myChart3" style="width:100%;max-width:800px;"></canvas>
+        <script>
+          function updateChart3(index){
+            if (index != 9) {
+              line_chart3.data.datasets = [{ 
+                label: load_data.T3[index].Type,
+                data: load_data.T3[index].Value,
+                borderColor: randomRGB(),
+                fill: false
+              }];
+            } else {
+              line_chart3.data.datasets = t3_datasets
+            }
+            
+            line_chart3.update();
+          }
+
+          const t3_datasets = [
+                { 
+                  label: load_data.T3[1].Type,
+                  data: load_data.T3[1].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[2].Type,
+                  data: load_data.T3[2].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[3].Type,
+                  data: load_data.T3[3].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[4].Type,
+                  data: load_data.T3[4].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[5].Type,
+                  data: load_data.T3[5].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[6].Type,
+                  data: load_data.T3[6].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[7].Type,
+                  data: load_data.T3[7].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                },
+                { 
+                  label: load_data.T3[8].Type,
+                  data: load_data.T3[8].Value,
+                  borderColor: randomRGB(),
+                  fill: false
+                }
+              ];
+
+          var line_chart3 = new Chart("myChart3", {
+            type: "line",
+            options: {
+                scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                }
+            },
+            data: {
+              labels: xValues,
+              datasets: t3_datasets
+            },
+            options: {
+              legend: {
+                display: true
+              }
+            }
+          });
+          </script>
+
+        <p class="w3-text-grey">Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/motor-vehicle-census-australia">abs.gov.au</a></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------->
+
+<div id="truck-conv">
+
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Energy Consumption for a 22 tonne truck:</br>Electric -Vs- Diesel</h1>
+        <h5 class="w3-padding-16"></h5>
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/Diesel-vs-Electric%20truck.png?raw=true" height="512px" alt="SA Power Networks">
+
+        <p class="w3-text-grey">Source: <a href="https://electricvehiclecouncil.com.au/wp-content/uploads/2022/01/ATA-EVC-Electric-trucks_Keeping-shelves-stocked-in-a-net-zero-world-2.pdf">Electric Vehicle Council of Australia</a></p>
+      </div>
+
+      <div class="w3-third w3-center">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Grid -->
+  <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Expected energy demand for trucks</h1>
+        <h5 class="w3-padding-32">Based on projected growth for trucks along with the forecasted population increase (source: <a href="https://plan.sa.gov.au/__data/assets/pdf_file/0005/1236767/Population-Projections-for-South-Australia-and-Regions-2021-to-2051-Summary.pdf">PlanSA</a>) of 1.4% per annum (high estimate) and 1.1% per annum (medium estimate). The total eelectricity demand for trucks can be estimated.</h5>
+
+        <p class="w3-text-grey"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------->
+
+<div id="map-view">
+
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Concept for monitoring the number of vehicles in each area/suburb of Adelaide.</h1>
+        <h5 class="w3-padding-16"></h5>
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/Adelaide_Map.png?raw=true" height="512px" alt="SA Power Networks">
+
+        <p class="w3-text-grey">If the environmental policies are directed towards incentivising people to replace thier old ICE cars to EVs. 
+          With cars more than 10 years old are more likely to be replaced sooner based on the average age of the cars.
+          Then monitoring each suburb's number of vehicles would give a better view on the growth of potential demand when these older vehicles are replaced.</p>
+
+          <p class="w3-text-grey">The map can provide additional parameter filtering for viewing the details for past years and see the rate of change in each area.</p>
+      </div>
+
+      <div class="w3-third w3-center">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Grid -->
+  <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Top 10 suburbs with the most vehicles</h1>
+        <h5 class="w3-padding-32"></h5>
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/suburb-vehicles.png?raw=true" height="512px" alt="SA Power Networks">
+        <p class="w3-text-grey">Source: <a href="https://electricvehiclecouncil.com.au/wp-content/uploads/2022/01/ATA-EVC-Electric-trucks_Keeping-shelves-stocked-in-a-net-zero-world-2.pdf">Electric Vehicle Council of Australia</a></p>
+        <p class="w3-text-grey"></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------->
+
+
+<div id="aviation">
+
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Number of flights starting from Adelaide per year</h1>
+        <h5 class="w3-padding-16"></h5>
+
+        <canvas id="myChart4" style="width:100%;max-width:800px;"></canvas>
+        <script>
+          console.log(flights)
+          const f1_datasets = [
+                { 
+                  label: flights.Year,
+                  data: flights.Total_trips,
+                  borderColor: randomRGB(),
+                  fill: false
+                }
+              ];
+
+          var line_chart4 = new Chart("myChart4", {
+            type: "line",
+            data: {
+              labels: flights.Year,
+              datasets: f1_datasets
+            },
+            options: {
+              legend: {
+                display: false
+              }
+            }
+          });
+          </script>
+        
+        <p class="w3-text-grey"></p>
+
+        <p class="w3-text-grey">Source: <a href="https://data.gov.au/dataset/ds-dga-c5029f2a-39b3-4aef-8ae1-73e7962f6170/details">data.gov.au</a></p>
+      </div>
+
+      <div class="w3-third w3-center">
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Grid -->
+  <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-third w3-center">
+        
+      </div>
+
+      <div class="w3-twothird">
+        <h1>Expected energy demand from aviation</h1>
+        <h5 class="w3-padding-32"></h5>
+        <img src="https://github.com/MarkJeremy/govhack-sapn/blob/main/Evidence%20of%20Work/Dashboard/CleanTechnica-EF.png?raw=true" width="100%" alt="SA Power Networks">
+        <p class="w3-text-grey">Source: <a href="https://cleantechnica.com/2022/12/05/how-much-electricity-will-electric-airplanes-need-how-much-will-it-cost/">CleanTechnica</a></p>
+
+        <p class="w3-text-grey">
+          Electric passenger flights are a relatively new technology. And as such we are not fully aware of the energy requirements for it.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!------------------------------------------------------------------------------->
+
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge"></h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+  <div class="w3-xlarge w3-padding-32">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+ </div>
+ <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
+</html>
